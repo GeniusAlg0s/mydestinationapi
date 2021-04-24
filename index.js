@@ -7,7 +7,7 @@ const { getUID, getPhoto } = require("./services");
 ///db
 const { db } = require("./Db");
 const { urlencoded } = require("express");
-const e = require("cors");
+// const e = require("cors");
 //call express to create sever
 const sever = express();
 sever.use(cors());
@@ -32,15 +32,9 @@ sever.listen(PORT, () => {
 
 //GET / => db :read opperation
 sever.get("/", (req, res) => {
-  res.send(db);
-});
-//GET /?location => destinations of that location
-sever.get("/:location", (req, res) => {
-  const { location } = req.params;
-  if (!location)
-    return res.status(400).json({
-      error: " location are require please enter these values",
-    });
+  const { location } = req.query;
+
+  if (!location) return res.send(db);
 
   const locations = db.filter(
     (dest) => dest.location.toLowerCase() === location.toLowerCase()
@@ -48,6 +42,8 @@ sever.get("/:location", (req, res) => {
 
   return res.send(locations);
 });
+//GET /?location => destinations of that location
+sever.get("/:location", (req, res) => {});
 
 //POST /
 //expects an object {name, location,  description?}
@@ -81,8 +77,9 @@ sever.put("/", async (req, res) => {
     return status(400).json({ error: "uid is require 6 digit number" });
 
   const { name, location, description } = req.body;
+
   if (!name && !location && !description) {
-    return status(400).json({
+    return res.status(400).json({
       error: "need at least either name location description",
     });
   }
@@ -115,7 +112,7 @@ sever.delete("/", (req, res) => {
 
   for (i = 0; i < db.length; i++) {
     if (db[i].uid == uid) {
-      db.splice(db[i], 1);
+      db.splice(i, 1);
     }
   }
 
