@@ -9,8 +9,8 @@ const db = [
   },
   {
     uid: "000002",
-    name: "libe",
-    location: "paris",
+    name: "liberty",
+    location: "New York",
     photo:
       "https://images.unsplash.com/photo-1494449880320-18d3dae5d16e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3RhdHVlJTIwb2YlMjBsaWJlcnR5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
     description: "land mark",
